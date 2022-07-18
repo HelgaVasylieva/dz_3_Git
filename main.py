@@ -129,7 +129,21 @@ def phone_sort():
 
     return str(phones)
 
+@app.route('/phones/sort_endalfabet/')
+def phone_sort_desc():
+    try:
+        conn = sqlite3.connect('users.db')
+        cur = conn.cursor()
+        sql = f'''
+        SELECT * FROM phones ORDER BY ContactName DESC;
+        '''
+        cur.execute(sql)
+        phones = cur.fetchall()
 
+    finally:
+        conn.close()
+
+    return str(phones)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
